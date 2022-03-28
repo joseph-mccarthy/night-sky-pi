@@ -2,7 +2,7 @@ import time_functions as time
 import sun_functions as sun
 
 def main() -> None:
-    coordinates = (10,10)
+    coordinates = (51.7678, 0.0878)
     while True:
         yesterday = time.get_yesterday()
         today = time.get_today()
