@@ -11,9 +11,11 @@ def main() -> None:
         today_sunrise,today_sunset = sun.get_rise_and_set(today,coordinates)
         next_sunrise,next_sunset = sun.get_rise_and_set(tomorrow,coordinates)
         if today > today_sunset and today < next_sunrise:
-            print('take pictures')
+            obs_date = today
+            print(f'take pictures observation date {obs_date}')
         elif today < today_sunrise and today > previous_sunset:
-            print('take pictures after midnight')      
+            obs_date = yesterday
+            print(f'take pictures observation date {obs_date}') 
         else:
             print('process images')      
 
