@@ -1,5 +1,6 @@
 # Night Sky Pi
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/joseph-mccarthy/night-sky-pi/Build?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/joseph-mccarthy/night-sky-pi?style=for-the-badge)
 [![wakatime](https://wakatime.com/badge/github/joseph-mccarthy/night-sky-pi.svg?style=for-the-badge)](https://wakatime.com/badge/github/joseph-mccarthy/night-sky-pi)
 
