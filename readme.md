@@ -2,6 +2,7 @@
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/joseph-mccarthy/night-sky-pi/Build?style=for-the-badge)
 ![Codecov](https://img.shields.io/codecov/c/gh/joseph-mccarthy/night-sky-pi?style=for-the-badge)
+ [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=joseph-mccarthy_night-sky-pi&metric=alert_status&style=for-the-badge)](https://sonarcloud.io/dashboard?id=joseph-mccarthy_night-sky-pi) 
 ![GitHub](https://img.shields.io/github/license/joseph-mccarthy/night-sky-pi?style=for-the-badge)
 [![wakatime](https://wakatime.com/badge/github/joseph-mccarthy/night-sky-pi.svg?style=for-the-badge)](https://wakatime.com/badge/github/joseph-mccarthy/night-sky-pi)
 
