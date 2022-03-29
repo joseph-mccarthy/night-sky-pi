@@ -1,14 +1,15 @@
-from time import sleep
 import time_functions as time
 import sun_functions as sun
 from capture import capture
 import logging
+import argparse
 
-logging.basicConfig(level=logging.DEBUG)
 
-def main() -> None:
-    coordinates = (51.7678, 0.0878)
-    while True:
+def main(lat,lon) -> None:
+    coordinates = (lat,lon)
+    
+    run = True
+    while run:
         yesterday, today, tomorrow = time.get_dates()
         
         yesterday_sunrise,yesterday_sunset = sun.get_rise_and_set(yesterday,coordinates)
@@ -26,9 +27,15 @@ def main() -> None:
                 logging.info(f"Waiting for sunset at {today_sunset}")
                 print('process images')    
         
-        s = 60
-        logging.debug(f'Debug sleep for {s}s')
-        sleep(s)  
+        run = False 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--lat",type=float,required=True,help="Latitude position of the camera")
+    parser.add_argument("--lon",type=float,required=True,help="Longitude position of the camera")
+    parser.add_argument("--log",type=str,required=False,help="Log Level",default=logging.WARNING)
+
+    args = parser.parse_args()
+    
+    logging.basicConfig(level=args.log)
+    main(args.lat,args.lon)
