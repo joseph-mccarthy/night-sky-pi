@@ -1,16 +1,18 @@
 from datetime import datetime, timedelta
 
+def _get_now() -> datetime:
+    return datetime.now()
 
 def get_today() -> datetime:
-    return datetime.now()
+    return _get_now()
 
 
 def get_tomorrow() -> datetime:
-    return datetime.now() + timedelta(1)
+    return _get_now() + timedelta(1)
 
 
 def get_yesterday() -> datetime:
-    return datetime.now() - timedelta(1)
+    return _get_now() - timedelta(1)
 
 
 def get_dates() -> tuple():
