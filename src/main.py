@@ -1,32 +1,34 @@
 import time_functions as time
 import sun_functions as sun
 from capture import capture
+from data import Observation,Location,SunData
 import logging
 import argparse
 
 
 def main(lat, lon) -> None:
-    pos = (lat, lon)
+    location = Location(lat,lon)
 
     run = True
 
     while run:
         yesterday, today, tomorrow = time.get_dates()
 
-        _, yesterday_ss = sun.get_rise_and_set(yesterday, pos)
-        today_sr, today_ss = sun.get_rise_and_set(today, pos)
-        tomorrow_sr, _ = sun.get_rise_and_set(tomorrow, pos)
+        yesterday_sun = sun.get_rise_and_set(yesterday, location)
+        today_sun = sun.get_rise_and_set(today, location)
+        tomorrow_sun = sun.get_rise_and_set(tomorrow, location)
 
-        if today > today_ss and today < tomorrow_sr:
+        if today > today_sun.sunset and today < tomorrow_sun.sunrise:
             logging.info("After Sunset before Midnight")
-            capture(today, pos, (today_ss, tomorrow_sr))
-        elif today < today_sr and today > yesterday_ss:
+            sundata = SunData(today_sun.sunset,tomorrow_sun.sunrise)
+            capture(Observation(today,location,sundata))
+        elif today < today_sun.sunrise and today > yesterday_sun.sunset:
             logging.info("Between Midnight and Sunrise")
-            capture(yesterday, pos, (yesterday_ss, today_sr))
+            sundata = SunData(yesterday_sun.sunset,today_sun.sunrise)
+            capture(Observation(yesterday,location,sundata))
         else:
-            if today < today_ss:
-                logging.info(f"Waiting for sunset at {today_ss}")
-                print("process images")
+            logging.info(f"Waiting for sunset at {today_sun.sunset}")
+            print("process images")
 
         run = False
 

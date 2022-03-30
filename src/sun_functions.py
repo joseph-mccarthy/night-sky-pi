@@ -1,10 +1,10 @@
 from suntime import Sun, SunTimeException
 from datetime import datetime
+from data import Location,SunData
 
 
-def get_rise_and_set(date: datetime, coorindates: tuple()) -> tuple():
-    latitude, longitude = coorindates
-    sun = Sun(latitude, longitude)
-    sr = sun.get_sunrise_time(date).replace(tzinfo=None)
-    ss = sun.get_sunset_time(date).replace(tzinfo=None)
-    return (sr, ss)
+def get_rise_and_set(date: datetime, location:Location) -> SunData:
+    sun = Sun(location.latitude, location.longitude)
+    sunrise = sun.get_sunrise_time(date).replace(tzinfo=None)
+    sunset = sun.get_sunset_time(date).replace(tzinfo=None)
+    return SunData(sunrise,sunset)

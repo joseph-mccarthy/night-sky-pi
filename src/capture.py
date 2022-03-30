@@ -1,6 +1,5 @@
-from datetime import datetime
+from data import Observation
 
 
-def capture(obs_date: datetime, location: tuple, duration: tuple) -> None:
-    sunset, sunrise = duration
-    print(f'Capture from {sunset} to {sunrise}')
+def capture(observation:Observation) -> None:
+    print(f'Capture from {observation.sun.sunset} to {observation.sun.sunrise}')
