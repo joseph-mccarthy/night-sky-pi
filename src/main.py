@@ -1,36 +1,40 @@
+import argparse
+import logging
+from data import Observation, Location, SunData
 import time_functions as time
 import sun_functions as sun
-from capture import capture
-from data import Observation,Location,SunData
-import logging
-import argparse
+import capture
 
 
-def main(lat, lon) -> None:
-    location = Location(lat,lon)
+class Main:
 
-    run = True
+    location: Location
 
-    while run:
-        yesterday, today, tomorrow = time.get_dates()
+    RUNNING = True
 
-        yesterday_sun = sun.get_rise_and_set(yesterday, location)
-        today_sun = sun.get_rise_and_set(today, location)
-        tomorrow_sun = sun.get_rise_and_set(tomorrow, location)
+    def __init__(self, lat, lon):
+        self.location = Location(lat, lon)
 
-        if today > today_sun.sunset and today < tomorrow_sun.sunrise:
-            logging.info("After Sunset before Midnight")
-            sundata = SunData(today_sun.sunset,tomorrow_sun.sunrise)
-            capture(Observation(today,location,sundata))
-        elif today < today_sun.sunrise and today > yesterday_sun.sunset:
-            logging.info("Between Midnight and Sunrise")
-            sundata = SunData(yesterday_sun.sunset,today_sun.sunrise)
-            capture(Observation(yesterday,location,sundata))
-        else:
-            logging.info(f"Waiting for sunset at {today_sun.sunset}")
-            print("process images")
+    def run(self) -> None:
 
-        run = False
+        while self.RUNNING:
+            yesterday, today, tomorrow = time.get_dates()
+
+            yesterday_sun = sun.get_rise_and_set(yesterday, self.location)
+            today_sun = sun.get_rise_and_set(today, self.location)
+            tomorrow_sun = sun.get_rise_and_set(tomorrow, self.location)
+
+            if today > today_sun.sunset and today < tomorrow_sun.sunrise:
+                logging.info("After Sunset before Midnight")
+                sundata = SunData(today_sun.sunset, tomorrow_sun.sunrise)
+                capture.run(Observation(today, self.location, sundata))
+            elif today < today_sun.sunrise and today > yesterday_sun.sunset:
+                logging.info("Between Midnight and Sunrise")
+                sundata = SunData(yesterday_sun.sunset, today_sun.sunrise)
+                capture.run(Observation(yesterday, self.location, sundata))
+            else:
+                logging.info(f"Waiting for sunset at {today_sun.sunset}")
+                print("process images")
 
 
 if __name__ == "__main__":
@@ -45,4 +49,5 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=args.log)
 
-    main(args.lat, args.lon)
+    application = Main(args.lat, args.lon)
+    application.run()
