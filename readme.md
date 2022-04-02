@@ -42,6 +42,9 @@
 
 ## References
 
+![CodeCov](https://app.codecov.io/gh/joseph-mccarthy/night-sky-pi)
+![SonarCloud](https://sonarcloud.io/project/overview?id=joseph-mccarthy_night-sky-pi) 
+
 [Back To The Top](#night-sky-pi)
 
 ---
