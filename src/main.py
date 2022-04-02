@@ -26,11 +26,11 @@ class Main:
 
             if today > today_sun.sunset and today < tomorrow_sun.sunrise:
                 logging.info("After Sunset before Midnight")
-                sundata = SunData(today_sun.sunset, tomorrow_sun.sunrise)
+                sundata = SunData(tomorrow_sun.sunrise, today_sun.sunset)
                 capture.run(Observation(today, self.location, sundata))
             elif today < today_sun.sunrise and today > yesterday_sun.sunset:
                 logging.info("Between Midnight and Sunrise")
-                sundata = SunData(yesterday_sun.sunset, today_sun.sunrise)
+                sundata = SunData(today_sun.sunrise, yesterday_sun.sunset)
                 capture.run(Observation(yesterday, self.location, sundata))
             else:
                 logging.info(f"Waiting for sunset at {today_sun.sunset}")
